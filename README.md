@@ -1,4 +1,5 @@
-- **Scan port** 
+- **Scan port**
+
 manual port scanner for a specific range of ports
 
 #bash
@@ -12,6 +13,7 @@ done
 ____________________
 
 -  **7z Universal decompressor**
+
 file decompression automation (applied to a file compressed multiple times)
 
 #bash
@@ -47,6 +49,7 @@ while [ $descomp ]; do
 _________________________
 
 - **SQL Injection with Conditional responses**
+
 Extracting a password letter by letter from a SQL Injection with Conditional responses
 
 #python
@@ -77,6 +80,7 @@ for i in range(1,21):
 ________
 
 - **SQL Injection with Conditional error**
+
 Extracting a password letter by letter from a SQL Injection with **Conditional error**
 
 #python
@@ -147,6 +151,7 @@ print(f"[✓] Contraseña completa: {password}")
 ____________________________
 
 - **Blind SQL injection with time delays and information retrieval**
+  
 Extracting a password letter by letter from a **Blind SQL injection with time delays and information retrieval**, empathize the use of the library ***tqdm*** to provide a more professional and user-friendly visual interface
 
 #python
@@ -186,6 +191,7 @@ for i in tqdm(range(1, 21), desc="Procesando...", colour="green"):
 _____________
 
 - **Database not sanitizied**
+
 Extracting a password from a **database**, the page filter if a username is valid or not as security method  
 
 #python
@@ -229,6 +235,7 @@ print(f"\n[!] Complete extraction. Password: {password}")
 _____________
 
 - **php not sanitizated by use passthru()**
+
 Extracting a password from a page which is not sanitized properly due to a direct conection betheween the php (layer 2) and the SHELL (layer 4). This happens due to the use of **_passthru()**
 
 #python
@@ -269,6 +276,7 @@ print(f"\n[!] Complete extraction. Password: {password}")
 
 _______________
 - **XML-RPC as attack vector**
+  
  This script was designed to  extract a password by exploiting an Entry Point by **XML-RPC**, taking advantage of **wp.getUsersBlogs** to validate crendentials. I emphasized the use of  a time cooler conditional to avoid IP blocking
 
 ```
