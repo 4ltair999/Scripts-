@@ -12,8 +12,7 @@ done
 
 ____________________
 
--  **7z Universal decompressor**
-
+-  **7z Universal decompressor version1**
 file decompression automation (applied to a file compressed multiple times)
 
 #bash
@@ -21,29 +20,45 @@ file decompression automation (applied to a file compressed multiple times)
 ```
 #!/bin/bash
 
-function ctrl_c(){
-  echo -e "[!]saliendo... "
-  exit -1
-}
+next_descompres=$(7z l data.gzip | tail -n 3 | head -n 1 | awk 'NF {print $NF}')
+7z x data.gzip &>/dev/null
+echo -e  "\n [+]Empezando...\n"
 
-trap ctrl_c INT
 
-first="data.gz"
-descomp=$(7z l data.gz | tail -n 3 | head -n 1 | awk 'NF{print $NF}')
-# Here's our file which is unzipped  
+while [ $next_descompres ]; do
 
-7z x data.gz  &>/dev/null
-# I'll unzip it here
+    new_descompres=$(7z l $next_descompres | tail -n 3 | head -n 1 | awk 'NF {print $NF}')
+    7z x $next_descompres &>/dev/null && next_descompres=$new_descompres
+    echo -e "[+]Archivo comprimido encontrado: $new_descompres \n"
 
-while [ $descomp ]; do 
-# Here I confirm that there is something
-  echo -e "\n\n The new unzipped file is : $descomp " 
-# I'm referring to the compressed file, which is the same as above.
+done
 
-  7z x $descomprimidonombre &>/dev/null 
-  # I unzip the value announced above
-  descomp=$(7z l $descomp | tail -n 3 | head -n 1 | awk 'NF{print $NF}') 
-  # And now I announce the new one that will be compressed
+```
+
+-  **7z Universal decompressor version2**
+
+```
+#!/bin/bash
+
+next_descompres=$(7z l data.gzip | tail -n 3 | head -n 1 | awk 'NF {print $NF}')
+7z x data.gzip &>/dev/null
+echo -e  "\n [+]Empezando...\n"
+
+
+while true; do     
+
+         7z l $next_descompres &>/dev/null
+
+         if [ $(echo $?) -eq 0 ]; then
+               new_descompres=$(7z l $next_descompres | tail -n 3 | head -n 1 | awk 'NF {print $NF}')
+               7z x $next_descompres &>/dev/null && next_descompres=$new_descompres
+               echo -e "[+]Nuevo archivo descomprimido: $new_descompres \n"
+         else 
+               echo "[-]Archivo no comprimido detectado: $new_descompres"
+               exit 1
+         fi
+
+done
 ```
 
 _________________________
